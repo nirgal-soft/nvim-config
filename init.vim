@@ -11,8 +11,6 @@ call dein#add('Shougo/dein.vim')
 call dein#add('tomasr/molokai')
 call dein#add('altercation/vim-colors-solarized')
 call dein#add('rking/ag.vim')
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
 call dein#add('nathanaelkane/vim-indent-guides')
 call dein#add('tpope/vim-fugitive')
 call dein#add('tpope/vim-surround')
@@ -28,6 +26,10 @@ call dein#add('ryanoasis/vim-devicons')
 call dein#add('tikhomirov/vim-glsl')
 
 call dein#end()
+
+"personal plugins
+source ~/.config/nvim/plugins/statusline.vim
+
 filetype plugin indent on
 filetype on
 
