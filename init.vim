@@ -6,6 +6,7 @@ filetype off
 
 set runtimepath+=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
+" Dein -------------------------- {{{
 call dein#begin(expand('~/.config/nvim/dein'))
 call dein#add('Shougo/dein.vim')
 call dein#add('tomasr/molokai')
@@ -26,6 +27,7 @@ call dein#add('ryanoasis/vim-devicons')
 call dein#add('tikhomirov/vim-glsl')
 
 call dein#end()
+" }}}
 
 "personal plugins
 source ~/.config/nvim/plugins/statusline.vim
@@ -46,7 +48,7 @@ let g:airline_solarized_bg='dark'
 set laststatus=2
 set encoding=utf-8
 
-"formatting
+"formatting -------------------- {{{
 set tabstop=2
 set expandtab
 set shiftwidth=2
@@ -61,8 +63,9 @@ let g:indent_guides_start_level=2
 let g:indent_guides_size=1
 let delimitMate_matchpairs = "(:),[:]"
 inoremap {<cr> {<cr>}<c-o>O
+" }}}
 
-"mappings
+"Custom mappings ------------------ {{{
 let mapleader="\<Space>""move line down
 nnoremap <leader>- dd <bar> p
 "[insert mode] uppercase current word
@@ -87,15 +90,17 @@ onoremap in{ :<c-u>normal! f{vi{<cr>
 onoremap il{ :<c-u>normal! F}vi{<cr>
 onoremap an{ :<c-u>normal! f{vf}<cr>
 onoremap al{ :<c-u>normal! F}vF{<cr>
+" }}}
 
-"unite options
-"unite keybindings
+"Denite options --------------------- {{{
+"Denite keybindings
 nnoremap <C-p> :Denite file_rec<cr>
 nnoremap <Leader>f :Denite file<cr>
 nnoremap <Leader>/ :Denite grep:.<cr>
 nnoremap <Leader>s :Denite -quick-match buffer<cr>
+" }}}
 
-"deoplete settings
+"deoplete settings ------------------------ {{{
 let g:deoplete#enable_at_startup = 1
 if !exists('g:deoplete#omni#input_patterns')
   let g:deoplete#omni#input_patterns = {}
@@ -106,7 +111,13 @@ augroup deoplete
 augroup END
 "tab completion
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
 "deoplete-clang settings
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+" }}}
 
+" Vimscript file settings -------------------- {{{
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
