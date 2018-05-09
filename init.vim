@@ -22,10 +22,10 @@ call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neoinclude.vim')
-call dein#add('zchee/deoplete-clang')
+call dein#add('tweekmonster/deoplete-clang2')
+call dein#add('zchee/deoplete-jedi')
 call dein#add('ryanoasis/vim-devicons')
 call dein#add('tikhomirov/vim-glsl')
-
 call dein#end()
 " }}}
 
@@ -36,7 +36,7 @@ filetype plugin indent on
 filetype on
 
 "color theme
-set t_Co=16
+set t_Co=256
 syntax enable
 set background=dark
 colorscheme solarized
@@ -49,7 +49,10 @@ set laststatus=2
 set encoding=utf-8
 
 "formatting -------------------- {{{
+set modeline
+set smarttab
 set tabstop=2
+set softtabstop=2
 set expandtab
 set shiftwidth=2
 set autoindent
@@ -97,7 +100,7 @@ onoremap al{ :<c-u>normal! F}vF{<cr>
 nnoremap <C-p> :Denite file_rec<cr>
 nnoremap <Leader>f :Denite file<cr>
 nnoremap <Leader>/ :Denite grep:.<cr>
-nnoremap <Leader>s :Denite -quick-match buffer<cr>
+nnoremap <Leader>s :Denite buffer<cr>
 " }}}
 
 "deoplete settings ------------------------ {{{
@@ -112,7 +115,7 @@ augroup END
 "tab completion
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 "deoplete-clang settings
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so.4.0'
 " }}}
 
 " Vimscript file settings -------------------- {{{
@@ -121,3 +124,6 @@ augroup filetype_vim
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
+
+"deoplete python environment completions
+let g:python3_host_prog = '/home/rearden/Documents/scratch/scraper_tut/env/bin/python3'
