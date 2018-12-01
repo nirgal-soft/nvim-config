@@ -126,4 +126,4 @@ augroup END
 " }}}
 
 "deoplete python environment completions
-let g:python3_host_prog = '/home/rearden/Documents/scratch/scraper_tut/env/bin/python3'
+"let g:python3_host_prog = '/home/rearden/Documents/scratch/scraper_tut/env/bin/python3'
