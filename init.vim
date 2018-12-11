@@ -126,4 +126,20 @@ augroup END
 " }}}
 
 "deoplete python environment completions
-"let g:python3_host_prog = '/home/rearden/Documents/scratch/scraper_tut/env/bin/python3'
+let g:python3_host_prog = '/home/rearden/Documents/projects/email-parser/env/bin/python3'
+
+"fugitive settings {{{
+nnoremap <space>ga :Git add %:p<CR><CR>
+nnoremap <space>gs :Gstatus<CR>
+nnoremap <space>gc :Gcommit -v -q<CR>
+nnoremap <space>gt :Gcommit -v -q %:p<CR>
+nnoremap <space>gd :Gdiff<CR>
+nnoremap <space>ge :Geddit<CR>
+nnoremap <space>gr :Gread<CR>
+nnoremap <space>gw :Gwrite<CR><CR>
+nnoremap <space>gl :silent! Gloh<CR>:bot copen<CR>
+nnoremap <space>gp :Ggrep<SPACE>
+nnoremap <space>gm :Gmove<SPACE>
+nnoremap <space>gb :Git branch<SPACE>
+nnoremap <space>go :Git checkout<SPACE>
+"}}}
