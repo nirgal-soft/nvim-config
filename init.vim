@@ -26,6 +26,7 @@ call dein#add('tweekmonster/deoplete-clang2')
 call dein#add('zchee/deoplete-jedi')
 call dein#add('ryanoasis/vim-devicons')
 call dein#add('tikhomirov/vim-glsl')
+call dein#add('vimwiki/vimwiki')
 call dein#end()
 " }}}
 
