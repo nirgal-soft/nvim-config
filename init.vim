@@ -143,6 +143,4 @@ nnoremap <space>gp :Ggrep<SPACE>
 nnoremap <space>gm :Gmove<SPACE>
 nnoremap <space>gb :Git branch<SPACE>
 nnoremap <space>go :Git checkout<SPACE>
-nnoremap <space>gps :Dispatch! git push<CR>
-nnoremap <space>gpl :Dispatch! git pull<CR>
 "}}}
