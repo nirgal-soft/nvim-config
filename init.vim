@@ -17,6 +17,7 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-repeat')
 call dein#add('tpope/vim-commentary')
+call dein#add('airblade/vim-gitgutter')
 call dein#add('Raimondi/delimitMate')
 call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
@@ -129,18 +130,25 @@ augroup END
 "deoplete python environment completions
 let g:python3_host_prog = '/home/rearden/Documents/projects/email-parser/env/bin/python3'
 
-"fugitive settings {{{
-nnoremap <space>ga :Git add %:p<CR><CR>
-nnoremap <space>gs :Gstatus<CR>
-nnoremap <space>gc :Gcommit -v -q<CR>
-nnoremap <space>gt :Gcommit -v -q %:p<CR>
-nnoremap <space>gd :Gdiff<CR>
-nnoremap <space>ge :Geddit<CR>
-nnoremap <space>gr :Gread<CR>
-nnoremap <space>gw :Gwrite<CR><CR>
-nnoremap <space>gl :silent! Gloh<CR>:bot copen<CR>
-nnoremap <space>gp :Ggrep<SPACE>
-nnoremap <space>gm :Gmove<SPACE>
-nnoremap <space>gb :Git branch<SPACE>
-nnoremap <space>go :Git checkout<SPACE>
+"fugitive settings -------------------- {{{
+nnoremap <Leader>ga :Git add %:p<CR><CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Gcommit -v -q<CR>
+nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>ge :Geddit<CR>
+nnoremap <Leader>gr :Gread<CR>
+nnoremap <Leader>gw :Gwrite<CR><CR>
+nnoremap <Leader>gl :silent! Gloh<CR>:bot copen<CR>
+nnoremap <Leader>gp :Ggrep<SPACE>
+nnoremap <Leader>gm :Gmove<SPACE>
+nnoremap <Leader>gb :Git branch<SPACE>
+nnoremap <Leader>go :Git checkout<SPACE>
+"}}}
+
+"gitgutter settings -------------------- {{{
+let g:gitgutter_enabled = 0
+nnoremap <Leader>gge :GitGutterEnable<CR>
+nnoremap <Leader>ggd :GitGutterDisable<CR>
+nnoremap <Leader>ggt :GitGutterToggle<CR>
 "}}}
