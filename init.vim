@@ -22,12 +22,19 @@ call dein#add('Raimondi/delimitMate')
 call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Shougo/deoplete.nvim')
-call dein#add('Shougo/neoinclude.vim')
-call dein#add('tweekmonster/deoplete-clang2')
+call dein#add('rip-rip/clang_complete')
 call dein#add('zchee/deoplete-jedi')
 call dein#add('ryanoasis/vim-devicons')
 call dein#add('tikhomirov/vim-glsl')
-call dein#add('vimwiki/vimwiki')
+call dein#add('mattn/calendar-vim')
+call dein#add('vimwiki/vimwiki', {'rev' : 'dev'})
+call dein#add('blindfs/vim-taskwarrior')
+call dein#add('tbabej/taskwiki')
+call dein#add('powerman/vim-plugin-ansiesc')
+call dein#add('majutsushi/tagbar')
+call dein#add('MattesGroeger/vim-bookmarks')
+call dein#add('wdicarlo/vim-notebook')
+call dein#add('gyim/vim-boxdraw')
 call dein#end()
 " }}}
 
@@ -72,6 +79,8 @@ inoremap {<cr> {<cr>}<c-o>O
 
 "Custom mappings ------------------ {{{
 let mapleader="\<Space>""move line down
+map ; :
+noremap ;; ;
 nnoremap <leader>- dd <bar> p
 "[insert mode] uppercase current word
 inoremap <c-u> <esc>viwUi
@@ -116,8 +125,17 @@ augroup deoplete
 augroup END
 "tab completion
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-"deoplete-clang settings
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so.4.0'
+"deoplete_clangx settings
+call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
+call deoplete#custom#var('clangx', 'default_c_options', '')
+call deoplete#custom#var('clangx', 'default_cpp_options', '')
+let g:clang_library_path='/usr/lib64/libclang.so.7'
+
+"jedi settings
+" let g:python3_host_prog = '/home/rearden/Documents/projects/email-parser/env/bin/python3'
+let g:python3_host_prog = '/usr/bin/python3'
+
+"set temp python variable here
 " }}}
 
 " Vimscript file settings -------------------- {{{
@@ -126,9 +144,6 @@ augroup filetype_vim
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
-
-"deoplete python environment completions
-let g:python3_host_prog = '/home/rearden/Documents/projects/email-parser/env/bin/python3'
 
 "fugitive settings -------------------- {{{
 nnoremap <Leader>ga :Git add %:p<CR><CR>
@@ -151,4 +166,24 @@ let g:gitgutter_enabled = 0
 nnoremap <Leader>gge :GitGutterEnable<CR>
 nnoremap <Leader>ggd :GitGutterDisable<CR>
 nnoremap <Leader>ggt :GitGutterToggle<CR>
+"}}}
+
+"tagbar settings ----------------------- {{{
+nmap <F8> :TagbarToggle<CR>
+"}}}
+
+"vimwiki settings ---------------------- {{{
+let g:vimwiki_list = [
+                        \{'path': '~/vimwiki/personal'},
+                        \{'path': '~/vimwiki/prerec'}
+                    \]
+"}}}
+
+"vim-bookmarks settings ---------------- {{{
+nmap <Leader>mm <Plug>BookmarkToggle
+nmap <Leader>mi <Plug>BookmarkAnnotate
+nmap <Leader>ma <Plug>BookmarkShowAll
+nmap <Leader>mn <Plug>BookmarkNext
+nmap <Leader>mp <Plug>BookmarkPrevious
+nmap <Leader>mc <Plug>BookmarkClear
 "}}}
