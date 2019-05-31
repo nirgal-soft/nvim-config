@@ -35,6 +35,7 @@ call dein#add('majutsushi/tagbar')
 call dein#add('MattesGroeger/vim-bookmarks')
 call dein#add('wdicarlo/vim-notebook')
 call dein#add('gyim/vim-boxdraw')
+call dein#add('w0rp/ale')
 call dein#end()
 " }}}
 
@@ -56,6 +57,8 @@ let g:airline_powerline_fonts=1
 let g:airline_solarized_bg='dark'
 set laststatus=2
 set encoding=utf-8
+set foldmethod=indent
+set foldlevel=99
 
 "formatting -------------------- {{{
 set modeline
@@ -108,7 +111,7 @@ onoremap al{ :<c-u>normal! F}vF{<cr>
 
 "Denite options --------------------- {{{
 "Denite keybindings
-nnoremap <C-p> :Denite file_rec<cr>
+nnoremap <C-p> :Denite file/rec<cr>
 nnoremap <Leader>f :Denite file<cr>
 nnoremap <Leader>/ :Denite grep:.<cr>
 nnoremap <Leader>s :Denite buffer<cr>
