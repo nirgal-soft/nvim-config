@@ -4,61 +4,69 @@ endif
 
 filetype off
 
-set runtimepath+=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
-
-" Dein -------------------------- {{{
-call dein#begin(expand('~/.config/nvim/dein'))
-call dein#add('Shougo/dein.vim')
-call dein#add('tomasr/molokai')
-call dein#add('altercation/vim-colors-solarized')
-call dein#add('rking/ag.vim')
-call dein#add('nathanaelkane/vim-indent-guides')
-call dein#add('tpope/vim-fugitive')
-call dein#add('tpope/vim-surround')
-call dein#add('tpope/vim-repeat')
-call dein#add('tpope/vim-commentary')
-call dein#add('airblade/vim-gitgutter')
-call dein#add('Raimondi/delimitMate')
-call dein#add('Shougo/denite.nvim')
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('rip-rip/clang_complete')
-call dein#add('zchee/deoplete-jedi')
-call dein#add('ryanoasis/vim-devicons')
-call dein#add('tikhomirov/vim-glsl')
-call dein#add('mattn/calendar-vim')
-call dein#add('vimwiki/vimwiki', {'rev' : 'dev'})
-call dein#add('blindfs/vim-taskwarrior')
-call dein#add('tbabej/taskwiki')
-call dein#add('powerman/vim-plugin-ansiesc')
-call dein#add('majutsushi/tagbar')
-call dein#add('MattesGroeger/vim-bookmarks')
-call dein#add('wdicarlo/vim-notebook')
-call dein#add('gyim/vim-boxdraw')
-call dein#add('w0rp/ale')
-call dein#end()
+" plugins -------------------------- {{{
+call plug#begin('~/.local/share/nvim/plugged')
+Plug '/usr/bin/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'tomasr/molokai'
+Plug 'altercation/vim-colors-solarized'
+Plug 'rking/ag.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'airblade/vim-gitgutter'
+Plug 'Raimondi/delimitMate'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tikhomirov/vim-glsl'
+Plug 'mattn/calendar-vim'
+Plug 'vimwiki/vimwiki', {'rev' : 'dev'}
+Plug 'blindfs/vim-taskwarrior'
+" Plug 'tbabej/taskwiki'
+Plug 'powerman/vim-plugin-ansiesc'
+Plug 'majutsushi/tagbar'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'wdicarlo/vim-notebook'
+Plug 'gyim/vim-boxdraw'
+Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'SirVer/ultisnips'
+" Plug 'itchyny/lightline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+call plug#end()
 " }}}
 
 "personal plugins
-source ~/.config/nvim/plugins/statusline.vim
+" source ~/.config/nvim/plugins/statusline.vim
 
 filetype plugin indent on
 filetype on
 
 "color theme
-set t_Co=256
+if !has('gui_running')
+  set t_Co=256
+endif
 syntax enable
 set background=dark
+let g:solarized_diffmode="high"
 colorscheme solarized
-let g:airline_theme='solarized'
 set number
 set guifont=Inconsolata\ for\ Powerline\ 9
-let g:airline_powerline_fonts=1
-let g:airline_solarized_bg='dark'
 set laststatus=2
 set encoding=utf-8
-set foldmethod=indent
-set foldlevel=99
+
+"airline
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+
+
+"use ripgrep
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading\ -S
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 
 "formatting -------------------- {{{
 set modeline
@@ -78,6 +86,7 @@ let g:indent_guides_start_level=2
 let g:indent_guides_size=1
 let delimitMate_matchpairs = "(:),[:]"
 inoremap {<cr> {<cr>}<c-o>O
+let g:rust_reccomended_style = 0
 " }}}
 
 "Custom mappings ------------------ {{{
@@ -98,47 +107,54 @@ nnoremap H ^
 nnoremap L $
 nnoremap $ <nop>
 nnoremap ^ <nop>
-"parantheses and bracket operator commands
-onoremap in( :<c-u>normal! f(vi(<cr>
-onoremap il( :<c-u>normal! F)vi(<cr>
-onoremap an( :<c-u>normal! f(vf)<cr>
-onoremap al( :<c-u>normal! F)vF(<cr>
-onoremap in{ :<c-u>normal! f{vi{<cr>
-onoremap il{ :<c-u>normal! F}vi{<cr>
-onoremap an{ :<c-u>normal! f{vf}<cr>
-onoremap al{ :<c-u>normal! F}vF{<cr>
+"text movement
+nnoremap <leader>k :m-2<cr>==
+nnoremap <leader>j :m+<cr>==
+xnoremap <leader>k :m-2<cr>gv=gv
+xnoremap <leader>k :m-2<cr>gv=gv
+"save current buffer
+nnoremap <leader>w :w<cr>
+"save and quit
+nnoremap <leader>wq :wq<cr>
+"open quickfix window
+nnoremap <leader>cw :cwindow<cr>
 " }}}
 
-"Denite options --------------------- {{{
-"Denite keybindings
-nnoremap <C-p> :Denite file/rec<cr>
-nnoremap <Leader>f :Denite file<cr>
-nnoremap <Leader>/ :Denite grep:.<cr>
-nnoremap <Leader>s :Denite buffer<cr>
+"Ctags ------------------------------ {{{
+set tags+=.git/tags
+nnoremap <leader>ct :!ctags -Rf ./tags<cr><cr>
 " }}}
 
-"deoplete settings ------------------------ {{{
-let g:deoplete#enable_at_startup = 1
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-augroup deoplete
-  autocmd!
-  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-augroup END
-"tab completion
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-"deoplete_clangx settings
-call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
-call deoplete#custom#var('clangx', 'default_c_options', '')
-call deoplete#custom#var('clangx', 'default_cpp_options', '')
-let g:clang_library_path='/usr/lib64/libclang.so.7'
+" fzf ----------------------------- {{{
+nnoremap <C-p> :Files<cr>
+nnoremap <leader>/ :Rg<cr>
+" }}}
+
+" ultisnips ------------------------ {{{
+imap <C-l> <Plug>(coc-snippets-expand)
+nnoremap <leader>us :UltiSnipsEdit<cr>
+let g:UltiSnipsExpandTrigger = '<f5>'
+let g:UltiSnipsSnippetsDir="~/.local/share/nvim/plugged/ultisnips/UltiSnips"
+" }}}
 
 "jedi settings
 " let g:python3_host_prog = '/home/rearden/Documents/projects/email-parser/env/bin/python3'
 let g:python3_host_prog = '/usr/bin/python3'
 
 "set temp python variable here
+" }}}
+
+" coc --------------------------- {{{
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 " }}}
 
 " Vimscript file settings -------------------- {{{
@@ -178,8 +194,12 @@ nmap <F8> :TagbarToggle<CR>
 "vimwiki settings ---------------------- {{{
 let g:vimwiki_list = [
                         \{'path': '~/vimwiki/personal'},
-                        \{'path': '~/vimwiki/prerec'}
+                        \{'path': '~/vimwiki/prerec'},
+                        \{'path': '~/vimwiki/ttrpg'},
                     \]
+
+let g:vimwiki_table_mappings = 0
+let g:vimiwiki_foldings='expr'
 "}}}
 
 "vim-bookmarks settings ---------------- {{{
